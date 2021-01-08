@@ -16,28 +16,45 @@ const page = {
 
     //Fonction qui ajoute au header un titre de type h1 avec la classe banner_title et du contenu
     //C'est techniquement une méthode. Une méthode est en gros une fonction dans un objet
-    addTitle: function () {
+    addTitle: () => {
         const title = document.createElement('h1');
-        title.className = 'banner_title';
+        title.classList.add('banner_title');
         title.textContent = 'Vous consultez le profil de Hercule';
         const header = document.getElementById('header-banner');
         header.appendChild(title);
     },
 
-    addWork: function () {
+    addWork: () => {
         //Pour chaque tour de boucle faire appel à la fonction contenue dans le fichier base qui va retirer la classe 'hidden' et nous permettre d'afficher les travaux d'hercule
         for (let index = 0; index <= 11; index++) {
             base.displayWork(index);
         }
     },
 
+    availability: () => {
+        //on récupère l'heure avec la méthode contenue dans le fichier base.js
+        let hour = base.getHour();
+        const availability = document.getElementById('availability');
+
+        //SI l'heure est comprise entre 8h et 20h, on rend Hercule disponible et la pastille est verte
+        //SINON il est indisponible et la pastille passe rouge.
+        if (8 < hour && hour < 20 ) {
+            availability.textContent = 'Disponible';
+            availability.classList.remove('off');
+
+        } else {
+            availability.textContent = 'Non disponible';
+            availability.classList.add('off');
+        }
+    },
+
     //Méthode qui récupère en paramètre un nom, et un département et qui renvoie une association des 2
-    generatePseudo: function (name, department) {
+    generatePseudo: (name, department) => {
         return name + "-du-" + department;
     },
 
     //Méthode qui ajoute du contenu dans notre élément 'profil-name'
-    writePseudo: function () {
+    writePseudo: () => {
         //appelle notre méthode qui génère un pseudo avec des données contenues dans notre objet hercule et stocke ce pseudo dans une constante
         const profilContent = page.generatePseudo(page.hercule.name, page.hercule.department);
         console.log(profilContent);
@@ -46,7 +63,7 @@ const page = {
     },
 
     //Méthode qui ouvre ou ferme notre menu lorsqu'elle est appelée
-    openCloseMenu: function (event) {
+    openCloseMenu: (event) => {
         //Récupère l'élément qui a l'ID 'header-banner' et le stocke dans banner
         const banner = document.getElementById('header-banner');
         //SI banner contient déjà la classe 'banner--open' on la retire
@@ -58,13 +75,13 @@ const page = {
         }
     },
 
-    contactHercule: function (event) {
+    contactHercule: (event) => {
         //Evite de recharger la page lors de l'envoie du formulaire
         event.preventDefault();
         alert("Hercule ne souhaite pas être dérangé");
     },
 
-    displayVote: function () {
+    displayVote: () => {
         const totalVotes = base.vote.hercule + base.vote.cesar;
 
         //Récupère dans une constante l'élément qui a la classe '.people__popularity' dans l''ID trends-hercule
@@ -85,27 +102,27 @@ const page = {
         cesarBar.style.width = cesarPopularity.textContent;
     },
 
-    displayTasks: function () {
+    displayTasks: () => {
         //on récupère l'élément qui a l'ID activities
         const activities = document.getElementById('activities');
         //on récupère a la classe tasks et qui appartient à l'élément qui a l'ID activities
         const list = document.querySelector('#activities .tasks');
         //On retire la classe 'hidden' de notre élément activities
-        activities.classList.remove('hidden');        
+        activities.classList.remove('hidden');
 
         //On rentre dans notre boucle for tant que l'on a pas testé toute la liste des activités qui ont été définies dans le fichier base.js
-        for(let index=0; index<base.activities.length; index++ ){  
+        for (let index = 0; index < base.activities.length; index++) {
             //On vérifie a chaque itération du for que l'auteur est bien Hercule et que l'activitée est finie (on a le même index)          
-            if (base.activities[index].author === 'Hercule' && base.activities[index].finished === true) { 
+            if (base.activities[index].author === 'Hercule' && base.activities[index].finished === true) {
                 //si on rentre dans le if, on ajoute un élément a notre liste et on lui donne en contenu du texte le titre correspondant à l'index auquel on se trouve.
-                let task =  document.createElement('li');                                            
+                let task = document.createElement('li');
                 task.textContent = base.activities[index].title;
-                list.appendChild(task); 
+                list.appendChild(task);
             }
-        }   
+        }
     },
 
-    init: function () {
+    init: () => {
         base.fillProfil(page.hercule);
 
         base.printFriends(page.friends);
@@ -115,6 +132,8 @@ const page = {
         page.addTitle();
 
         page.addWork();
+
+        page.availability();
 
         page.writePseudo();
 
