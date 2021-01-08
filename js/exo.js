@@ -38,10 +38,8 @@ const page = {
 
         //SI l'heure est comprise entre 8h et 20h, on rend Hercule disponible et la pastille est verte
         //SINON il est indisponible et la pastille passe rouge.
-        if (8 < hour && hour < 20 ) {
+        if (8 <= hour && hour < 20 ) {
             availability.textContent = 'Disponible';
-            availability.classList.remove('off');
-
         } else {
             availability.textContent = 'Non disponible';
             availability.classList.add('off');
@@ -66,13 +64,17 @@ const page = {
     openCloseMenu: (event) => {
         //Récupère l'élément qui a l'ID 'header-banner' et le stocke dans banner
         const banner = document.getElementById('header-banner');
+
         //SI banner contient déjà la classe 'banner--open' on la retire
         //SINON on l'ajoute
-        if (banner.classList.contains('banner--open')) {
-            banner.classList.remove('banner--open');
-        } else {
-            banner.classList.add('banner--open');
-        }
+        // if (banner.classList.contains('banner--open')) {
+        //     banner.classList.remove('banner--open');
+        // } else {
+        //     banner.classList.add('banner--open');
+        // }
+
+        //On peut remplacer tout ce IF par 
+        banner.classList.toggle('banner--open');
     },
 
     contactHercule: (event) => {
@@ -81,6 +83,9 @@ const page = {
         alert("Hercule ne souhaite pas être dérangé");
     },
 
+
+    //On aurait pu faire une fonction qui calcule nos pourcentages et une seconde qui affiche le résultat avec en paramètre le nom et le résultat.
+    //const caracterPopularity = document.querySelector(`#trends-${name}` .people__popularity);
     displayVote: () => {
         const totalVotes = base.vote.hercule + base.vote.cesar;
 
@@ -148,4 +153,6 @@ const page = {
 
 }
 
+//Quelle différence entre les 2 ?
+//document.addEventListener('DOMContentLoaded', app.init );
 page.init();
