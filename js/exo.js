@@ -9,6 +9,8 @@ const page = {
     },
 
     friends: ['Jupiter', 'Junon', 'Alcmène', 'Déjanire'],
+    form : document.getElementById('contact'),
+    menu : document.getElementById('menu-toggler'),
 
     addTitle: function () {
         const title = document.createElement('h1');
@@ -59,6 +61,15 @@ const page = {
 
         herculePopularity.textContent = Math.round(100 * base.vote.hercule / totalVotes) + "%";
         cesarPopularity.textContent = Math.round(100 * base.vote.cesar / totalVotes) + "%";
+
+        const herculeBar= document.querySelector('#trends-hercule .people__bar');
+        const cesarBar= document.querySelector('#trends-cesar .people__bar');
+
+        herculeBar.style.width = herculePopularity.textContent;
+        cesarBar.style.width = cesarPopularity.textContent;
+
+
+
     },
 
     init: function () {
@@ -73,12 +84,10 @@ const page = {
         page.addWork();
 
         page.writePseudo();
+        
+        page.menu.addEventListener('click', page.openCloseMenu);
 
-        const menu = document.getElementById('menu-toggler');
-        menu.addEventListener('click', page.openCloseMenu);
-
-        const form = document.getElementById('contact');
-        form.addEventListener('submit', page.contactHercule);
+        page.form.addEventListener('submit', page.contactHercule);
 
         page.displayVote();
     }
