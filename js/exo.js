@@ -11,6 +11,21 @@ const hercule ={
 
 const friends = ['Jupiter', 'Junon', 'Alcmène', 'Déjanire'];
 
+function addTitle(){
+    const title = document.createElement('h1');
+title.className= 'banner_title';
+title.textContent= 'Vous consultez le profil de Hercule';
+const header = document.getElementById('header-banner');
+header.appendChild(title);
+}
+
+function addWork(){
+
+    for(let index=0; index<=11; index++){
+        base.displayWork(index);
+    }
+}
+
 
 base.fillProfil(hercule);
 
@@ -18,9 +33,15 @@ base.printFriends(friends);
 
 base.setBestFriend(friends[0]);
 
+addTitle();
 
-const title = document.createElement('h1');
-title.className= 'banner_title';
-title.textContent= 'Vous consultez le profil de Hercule';
-const header = document.getElementById('header-banner');
-header.appendChild(title);
+addWork();
+
+
+
+
+
+
+
+
+
