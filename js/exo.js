@@ -1,7 +1,7 @@
 console.log('test 1...2...1...2');
 
-const hercule ={
-    name :'Hercule',
+const hercule = {
+    name: 'Hercule',
     job: 'Demi-dieu',
     age: 35,
     departement: 75,
@@ -11,19 +11,30 @@ const hercule ={
 
 const friends = ['Jupiter', 'Junon', 'Alcmène', 'Déjanire'];
 
-function addTitle(){
+function addTitle() {
     const title = document.createElement('h1');
-title.className= 'banner_title';
-title.textContent= 'Vous consultez le profil de Hercule';
-const header = document.getElementById('header-banner');
-header.appendChild(title);
-}
+    title.className = 'banner_title';
+    title.textContent = 'Vous consultez le profil de Hercule';
+    const header = document.getElementById('header-banner');
+    header.appendChild(title);
+};
 
-function addWork(){
+function addWork() {
 
-    for(let index=0; index<=11; index++){
+    for (let index = 0; index <= 11; index++) {
         base.displayWork(index);
     }
+};
+
+function generatePseudo(name, departement) {
+    return name + "-du-" + departement;
+};
+
+function writePseudo(){
+    const profilContent = generatePseudo(hercule.name, hercule.departement);
+    console.log(profilContent);    
+    const profil = document.getElementById('profil-name');
+    profil.textContent= profilContent;
 }
 
 
@@ -37,11 +48,4 @@ addTitle();
 
 addWork();
 
-
-
-
-
-
-
-
-
+writePseudo();
