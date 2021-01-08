@@ -30,11 +30,21 @@ function generatePseudo(name, departement) {
     return name + "-du-" + departement;
 };
 
-function writePseudo(){
+function writePseudo() {
     const profilContent = generatePseudo(hercule.name, hercule.departement);
-    console.log(profilContent);    
+    console.log(profilContent);
     const profil = document.getElementById('profil-name');
-    profil.textContent= profilContent;
+    profil.textContent = profilContent;
+}
+
+function openCloseMenu(event) {
+    console.log("openCloseMenu");
+    const banner = document.getElementById('header-banner');
+    if (banner.classList.contains('banner--open')) {
+        banner.classList.remove('banner--open');
+    } else {
+        banner.classList.add('banner--open');
+    }
 }
 
 
@@ -49,3 +59,6 @@ addTitle();
 addWork();
 
 writePseudo();
+
+const menu = document.getElementById('menu-toggler');
+menu.addEventListener('click', openCloseMenu);
