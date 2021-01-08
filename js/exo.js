@@ -5,7 +5,7 @@ const page = {
         name: 'Hercule',
         job: 'Demi-dieu',
         age: 35,
-        departement: 75,
+        department: 75,
         arm: 60.5,
         inRelationship: true,
     },
@@ -15,6 +15,7 @@ const page = {
     menu: document.getElementById('menu-toggler'),
 
     //Fonction qui ajoute au header un titre de type h1 avec la classe banner_title et du contenu
+    //C'est techniquement une méthode. Une méthode est en gros une fonction dans un objet
     addTitle: function () {
         const title = document.createElement('h1');
         title.className = 'banner_title';
@@ -30,21 +31,21 @@ const page = {
         }
     },
 
-    //Fonction qui récupère en paramètre un nom, et un département et qui renvoie une association des 2
-    generatePseudo: function (name, departement) {
-        return name + "-du-" + departement;
+    //Méthode qui récupère en paramètre un nom, et un département et qui renvoie une association des 2
+    generatePseudo: function (name, department) {
+        return name + "-du-" + department;
     },
 
-    //Fonction qui ajoute du contenu dans notre élément 'profil-name'
+    //Méthode qui ajoute du contenu dans notre élément 'profil-name'
     writePseudo: function () {
-        //appelle notre fonction qui génère un pseudo avec des données contenues dans notre objet hercule et stocke ce pseudo dans une constante
-        const profilContent = page.generatePseudo(page.hercule.name, page.hercule.departement);
+        //appelle notre méthode qui génère un pseudo avec des données contenues dans notre objet hercule et stocke ce pseudo dans une constante
+        const profilContent = page.generatePseudo(page.hercule.name, page.hercule.department);
         console.log(profilContent);
         const profil = document.getElementById('profil-name');
         profil.textContent = profilContent;
     },
 
-    //Fonction ouvre ou ferme notre menu lorsqu'elle est appelée
+    //Méthode qui ouvre ou ferme notre menu lorsqu'elle est appelée
     openCloseMenu: function (event) {
         //Récupère l'élément qui a l'ID 'header-banner' et le stocke dans banner
         const banner = document.getElementById('header-banner');
@@ -82,7 +83,26 @@ const page = {
         //Modifie le style dans notre CSS. La width équivaut au résultat de notre calcul
         herculeBar.style.width = herculePopularity.textContent;
         cesarBar.style.width = cesarPopularity.textContent;
+    },
 
+    displayTasks: function () {
+        //on récupère l'élément qui a l'ID activities
+        const activities = document.getElementById('activities');
+        //on récupère a la classe tasks et qui appartient à l'élément qui a l'ID activities
+        const list = document.querySelector('#activities .tasks');
+        //On retire la classe 'hidden' de notre élément activities
+        activities.classList.remove('hidden');        
+
+        //On rentre dans notre boucle for tant que l'on a pas testé toute la liste des activités qui ont été définies dans le fichier base.js
+        for(let index=0; index<base.activities.length; index++ ){  
+            //On vérifie a chaque itération du for que l'auteur est bien Hercule et que l'activitée est finie (on a le même index)          
+            if (base.activities[index].author === 'Hercule' && base.activities[index].finished === true) { 
+                //si on rentre dans le if, on ajoute un élément a notre liste et on lui donne en contenu du texte le titre correspondant à l'index auquel on se trouve.
+                let task =  document.createElement('li');                                            
+                task.textContent = base.activities[index].title;
+                list.appendChild(task); 
+            }
+        }   
     },
 
     init: function () {
@@ -103,6 +123,8 @@ const page = {
         page.form.addEventListener('submit', page.contactHercule);
 
         page.displayVote();
+
+        page.displayTasks();
     }
 
 }
