@@ -1,5 +1,3 @@
-console.log('test 1...2...1...2');
-
 const hercule = {
     name: 'Hercule',
     job: 'Demi-dieu',
@@ -35,7 +33,7 @@ function writePseudo() {
     console.log(profilContent);
     const profil = document.getElementById('profil-name');
     profil.textContent = profilContent;
-}
+};
 
 function openCloseMenu(event) {
     console.log("openCloseMenu");
@@ -45,20 +43,33 @@ function openCloseMenu(event) {
     } else {
         banner.classList.add('banner--open');
     }
+};
+
+function contactHercule(event) {
+    event.preventDefault();
+    alert("Hercule ne souhaite pas être dérangé");
+
+};
+
+function init() {
+    base.fillProfil(hercule);
+
+    base.printFriends(friends);
+
+    base.setBestFriend(friends[0]);
+
+    addTitle();
+
+    addWork();
+
+    writePseudo();
+
+    const menu = document.getElementById('menu-toggler');
+    menu.addEventListener('click', openCloseMenu);
+
+    const form = document.getElementById('contact');
+    form.addEventListener('submit', contactHercule);
+
 }
 
-
-base.fillProfil(hercule);
-
-base.printFriends(friends);
-
-base.setBestFriend(friends[0]);
-
-addTitle();
-
-addWork();
-
-writePseudo();
-
-const menu = document.getElementById('menu-toggler');
-menu.addEventListener('click', openCloseMenu);
+init();
